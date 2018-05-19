@@ -30,10 +30,11 @@ const retrieveItems = () => {
     prices = parent.children('.item-params').children('.price').map((i, el) => {
       return $(el).text().trim().match(/(?<!\S)(?=.)(0|([1-9](\d*|\d{0,2}(,\d{3})*)))?(\.\d*[1-9]$)?(?!\S)/g);
     }).get();
+    if (titles.length === 0) return console.log('No se encontraron resultados en esta busqueda')
     items = [...titles].map((v, k) => {
       return {
         title: v,
-        price: parseInt(prices[k].replace(',', ''))
+        price: prices[k] ? parseInt(prices[k].replace(',', '')) : 'No tiene'
       }
     });
     if (!lastTitle) {
